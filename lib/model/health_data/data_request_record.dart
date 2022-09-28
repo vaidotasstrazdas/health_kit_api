@@ -1,7 +1,7 @@
 library health_kit_api;
 
 class DataRequestRecord {
-  final String? date;
+  final DateTime? date;
   final double? activityMoveMode;
   final double? appleMoveTime;
   final double? activeEnergyBurned;
@@ -23,15 +23,28 @@ class DataRequestRecord {
     this.restingHeartRate,
   });
 
-  Map<String, dynamic> toObject() => {
-        'date': date,
-        'activityMoveMode': activityMoveMode,
-        'appleMoveTime': appleMoveTime,
-        'activeEnergyBurned': activeEnergyBurned,
-        'appleExerciseTime': appleExerciseTime,
-        'steps': steps,
-        'calories': calories,
-        'heartRate': heartRate,
-        'restingHeartRate': restingHeartRate,
-      };
+  Map<String, dynamic> toObject() {
+    String? dateString;
+    if (date != null) {
+      final dateUtc = date!.toUtc();
+      dateString =
+          '${dateUtc.year}-${dateUtc.month.toString().padLeft(2, '0')}-${dateUtc.day.toString().padLeft(2, '0')}';
+    }
+
+    final result = {
+      'date': dateString,
+      'activityMoveMode': activityMoveMode,
+      'appleMoveTime': appleMoveTime,
+      'activeEnergyBurned': activeEnergyBurned,
+      'appleExerciseTime': appleExerciseTime,
+      'steps': steps,
+      'calories': calories,
+      'heartRate': heartRate,
+      'restingHeartRate': restingHeartRate,
+    };
+
+    result.removeWhere((key, value) => value == null);
+
+    return result;
+  }
 }

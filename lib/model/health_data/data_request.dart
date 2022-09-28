@@ -1,7 +1,5 @@
 library health_kit_api;
 
-import 'dart:convert';
-
 import 'package:health_kit_api/model/health_data/data_request_record.dart';
 
 class DataRequest {
@@ -17,20 +15,14 @@ class DataRequest {
     this.dataType,
   });
 
-  String toJson() {
-    /*DataRequestModel(
-                    data: models, user_uuid: uuid, data_type: "activities_summary", callback_url: callbackUrl ?? ""
-                  ),
-*/
-    final request = jsonEncode({
+  Map<String, dynamic> toObject() {
+    final result = {
       'data': records.map((record) => record.toObject()).toList(),
       'user_uuid': userId,
       'data_type': dataType ?? 'activities_summary',
       'callback_url': callbackUrl ?? '',
-    });
+    };
 
-    print('req: $request');
-
-    return request;
+    return result;
   }
 }

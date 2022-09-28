@@ -50,22 +50,23 @@ class HealthKitApi {
     return result;
   }
 
-  Future<DataResponse?> sendData({
+  Future<DataResponse> sendData({
     required String authToken,
     required DataRequest request,
   }) async {
     final endpoint = Uri.parse('${origin.host}/sync/apple/');
 
+    final requestObject = request.toObject();
+    final requestJson = jsonEncode(requestObject);
+
     final response = await _client.post(
       endpoint,
-      body: request.toJson(),
+      body: requestJson,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'X-Spike-Auth': authToken,
       },
     );
-
-    print('resp: ${response.body}');
 
     if (response.statusCode != 200) {
       throw ApiException(
@@ -74,6 +75,9 @@ class HealthKitApi {
       );
     }
 
-    return null;
+    final responseObject = jsonDecode(utf8.decode(response.bodyBytes));
+    final result = DataResponse.fromObject(responseObject);
+
+    return result;
   }
 }

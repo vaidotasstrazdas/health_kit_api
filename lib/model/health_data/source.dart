@@ -10,4 +10,10 @@ class Source {
     required this.slug,
     required this.logo,
   });
+
+  factory Source.fromObject(final Map<String, dynamic> object) => Source(
+        name: object['name'],
+        slug: object['slug'],
+        logo: object['logo'],
+      );
 }
