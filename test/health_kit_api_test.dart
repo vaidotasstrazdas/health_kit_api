@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_kit_api/health_kit_api.dart';
+import 'package:health_kit_api/model/health_data/activity_data.dart';
 import 'package:health_kit_api/model/health_data/data_request.dart';
-import 'package:health_kit_api/model/health_data/data_request_record.dart';
 import 'package:health_kit_api/model/origin.dart';
 
 void main() {
@@ -30,11 +30,11 @@ void main() {
       authToken: 'fa0b3803-6068-4ea7-9788-eccce210d30c',
       request: DataRequest(
         records: [
-          DataRequestRecord(
+          ActivityData(
             activeEnergyBurned: 3000,
             steps: 0,
-            restingHeartRate: [99, 55, 44.58],
-            heartRate: [85, 66.7],
+            restingHeartRates: [99, 55, 44.58],
+            heartRates: [85, 66.7],
             appleMoveTime: 10,
             date: now,
             appleExerciseTime: 20,

@@ -1,9 +1,9 @@
 library health_kit_api;
 
-import 'package:health_kit_api/model/health_data/data_request_record.dart';
+import 'package:health_kit_api/model/health_data/activity_data.dart';
 
 class DataRequest {
-  final Iterable<DataRequestRecord> records;
+  final Iterable<ActivityData> records;
   final String userId;
   final String? callbackUrl;
   final String? dataType;
