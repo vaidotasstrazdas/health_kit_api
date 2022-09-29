@@ -1,5 +1,4 @@
 name: health_kit_api
-author: Vaidotas Strazdas <strazdas.vaidotas@gmail.com>
 description: Reads HealthKit data from iOS HealthKit, and allows you to sync it with your chosen backend.
 version: 0.0.1
 homepage: https://github.com/vaidotasstrazdas/health_kit_api
