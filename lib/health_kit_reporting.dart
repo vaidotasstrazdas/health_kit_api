@@ -27,14 +27,14 @@ class HealthKitReporting {
     final mappedByDate = <String, ActivityData>{};
     for (final unit in preferredUnits) {
       final type = QuantityTypeFactory.from(unit.identifier);
-      final quantities = await HealthKitReporter.quantityQuery(
-        type,
+      final quantities = await HealthKitReporter.sampleQuery(
         unit.identifier,
         Predicate(from, to),
       );
 
       for (final quantity in quantities) {
-        final date = DateUtil.millisToDateString(quantity.startTimestamp);
+        final date =
+            DateUtil.millisToDateString(quantity.startTimestamp * 1000);
         if (mappedByDate[date] == null) {
           mappedByDate[date] = ActivityData(
             date: DateTime.parse(date),

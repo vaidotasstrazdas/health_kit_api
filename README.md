@@ -11,29 +11,73 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+HealthKit API allows you to read the Apple HealthKit data (based on another package - https://pub.dev/packages/health_kit_reporter ). Then, it allows you to send the data to your backend chosen.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+1. Read the Apple HealthKit data.
+2. Send this data to backend.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Setup everything like you would to with https://pub.dev/packages/health_kit_reporter . Then, use this library as shown in example below (or in the longer one).
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+/*
+* 1. Initialization
+*/
+// Your API credentials
+const _authToken = 'fa0b3803-6068-4ea7-9788-eccce210d30c';
+const _clientId = 'ea9e03f5-be45-49fb-bf4c-47a88c184c3b';
+const _host = 'https://dev.api.spikeapi.com';
+const _userId = 'jasbdhasbfashfj';
+
+// Origin of the endpoint you are going to sync the data with
+const _origin = Origin(
+  host: _host,
+  userId: _userId,
+);
+
+// API to read the data from Apple HealthKit
+final _reporting = HealthKitReporting();
+
+const _api = HealthKitApi(origin: _origin);
+
+/*
+* 2. Requesting authorization.
+*/
+await _reporting.requestReadAuthorization();
+
+/*
+* 3. Initializing user integration.
+*/
+final integrationResult = await _api.initIntegration(
+  authToken: _authToken,
+  clientId: _clientId,
+);
+
+/*
+* 4. Reading Apple HealthKit data
+*/
+final appleData = await _reporting.readActivityData(
+  from: DateTime(2022, 09, 22),
+  to: DateTime.now(),
+);
+
+/*
+* 5. Sending Apple HealthKit data to your backend.
+*/
+await _api.sendData(
+  authToken: _authToken,
+  request: DataRequest(
+    records: appleData,
+    userId: integrationResult.userId,
+  ),
+);
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+All information is here and in the GitHub page of this package.
