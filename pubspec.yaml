@@ -1,7 +1,7 @@
 name: health_kit_api
 description: Reads HealthKit data from iOS HealthKit, and allows you to sync it with your chosen backend.
 version: 0.0.1
-homepage:
+homepage: https://github.com/vaidotasstrazdas/health_kit_api
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
